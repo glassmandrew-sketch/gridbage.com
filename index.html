@@ -155,8 +155,8 @@
     /* ── MINI BOARD DOTS ── */
     .mini-board { display: inline-flex; flex-direction: column; align-items: center; }
     .mini-row { display: flex; }
-    .dot { width: 10px; height: 10px; border-radius: 50%; margin: 3px; background: rgba(255,255,255,0.15); }
-    .dot.gf { background: #f5c842; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; margin: 3px; background: #5c2a0c; border: 1.5px solid #f5c842; }
+    .dot.gf { background: #f5c842; border: none; }
     .dot-sp { width: 16px; height: 16px; }
     .board-lbl { font-size: 10px; font-weight: 700; color: #f5c842; margin-top: 6px; letter-spacing: 0.5px; }
 
@@ -427,16 +427,18 @@
           <div class="score-lbl"><strong>Runs +1 per card</strong>3+ consecutive ranks</div>
         </div>
       </div>
-      <p class="how-body">Your HOLD card + 3 GRID cards + the shared Classic Cribbage CUT card = 5-card classic cribbage scoring in every lane.</p>
-      <p class="how-sub" style="color:#d4a96a;margin-top:6px;font-size:0.78rem;line-height:1.7;">Also scores: <strong style="color:#f0ddb8;">Flush</strong> — 4 or 5 cards of the same suit &nbsp;·&nbsp; <strong style="color:#f0ddb8;">Nobs</strong> — a Jack matching the Turn card's suit</p>
+      <p class="how-body">Your HOLD card + 3 GRID cards + the shared Classic Cribbage CUT Card = 5-card classic cribbage scoring in every lane.</p>
+      <p class="how-sub" style="color:#d4a96a;margin-top:6px;font-size:0.78rem;line-height:1.7;">Also scores: <strong style="color:#f0ddb8;">Flush</strong> — 4–5 same suit</p>
+      <p class="how-sub" style="color:#d4a96a;margin-bottom:6px;font-size:0.78rem;line-height:1.7;"><strong style="color:#f0ddb8;">Nobs</strong> — Jack matching CUT Card suit</p>
+      <p style="font-size:1.4rem;color:#f0ddb8;text-align:center;margin-top:8px;margin-bottom:4px;line-height:1.5;font-weight:800;">
+        First to <strong style="color:#f5c842;">121</strong> wins!
+      </p>
+      <p class="how-sub" style="text-align:center;margin-bottom:6px;">For the loser, games count as...</p>
       <table class="skunk-table">
-        <tr><td><div class="skunk-icon">🏆</div></td><td>91–120 pts</td><td>Regular loss</td></tr>
+        <tr><td><div class="skunk-icon" style="background:#c41818;color:#fff;font-weight:900;font-size:1.1rem;">L</div></td><td>91–120 pts</td><td>Regular loss</td></tr>
         <tr><td><div class="skunk-icon">🦨</div></td><td>61–90 pts</td><td>Skunk — 2 losses</td></tr>
         <tr><td><div class="skunk-icon">🦨🦨</div></td><td>0–60 pts</td><td>Double skunk — 3 losses</td></tr>
       </table>
-      <p style="font-size:1.64rem;color:#f0ddb8;text-align:center;margin-top:10px;line-height:1.6;">
-        First to <strong style="color:#f5c842;">121</strong> wins!
-      </p>
     </div>
 
     <!-- Card 4: The Crib -->
