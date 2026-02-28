@@ -1,554 +1,678 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GRIDBAGE – A little hold'em. A whole lot of out-smart'em.</title>
+  <title>GRIDBAGE — Strategic Cribbage Card Game</title>
+  <meta name="description" content="Gridbage is a bold reinvention of cribbage — blending the strategy of hold'em poker with classic cribbage scoring on a patented triangular grid board."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --wood:       #6b3410;
+      --wood-dark:  #1a0800;
+      --wood-light: #8b4820;
+      --gold:       #d4a017;
+      --gold-bright:#f0c040;
+      --cream:      #f5ead8;
+      --muted:      #b08060;
+      --green:      #1a5c1a;
+      --red:        #8b1a1a;
+      --blue:       #1a3a8b;
+      --purple:     #4a0d6b;
+      --purple-bdr: #cc00ff;
+    }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #3b1a08;
-      color: #f5e6d0;
+      font-family: 'Crimson Pro', Georgia, serif;
+      background: var(--wood);
+      color: var(--cream);
       min-height: 100vh;
+      overflow-x: hidden;
     }
+
+    /* Wood grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        repeating-linear-gradient(92deg, transparent, transparent 120px, rgba(255,210,140,0.03) 121px),
+        repeating-linear-gradient(88deg, transparent, transparent 200px, rgba(0,0,0,0.04) 201px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--wood-dark);
+      border-bottom: 2px solid var(--gold);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--gold-bright);
+      letter-spacing: 4px;
+      text-decoration: none;
+      text-shadow: 2px 2px 0 #5a2d0c;
+    }
+
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold-bright); }
+
+    .nav-cta {
+      background: var(--gold) !important;
+      color: var(--wood-dark) !important;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: 700 !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.85; }
 
     /* ── HERO ── */
     .hero {
-      background: #2a1005;
-      padding: 60px 24px 52px;
-      text-align: center;
-      border-bottom: 3px solid #8B4513;
       position: relative;
-      overflow: hidden;
+      z-index: 1;
+      text-align: center;
+      padding: 90px 24px 70px;
+      background: linear-gradient(180deg, var(--wood-dark) 0%, var(--wood) 100%);
+      border-bottom: 3px solid var(--gold);
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(245,200,66,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero h1 {
-      font-size: clamp(3rem, 10vw, 5.5rem);
-      font-weight: 900;
-      letter-spacing: 10px;
-      color: #f5c842;
-      text-shadow: 4px 4px 0px #5a2d0c, 0 0 40px rgba(245,200,66,0.3);
-      margin-bottom: 14px;
-    }
-
-    .hero .tagline {
-      font-size: clamp(1rem, 3vw, 1.35rem);
-      color: #d4a96a;
+    .hero-eyebrow {
+      font-family: 'Crimson Pro', serif;
       font-style: italic;
-      margin-bottom: 10px;
-      letter-spacing: 0.5px;
-    }
-
-    .hero .sub-tagline {
-      font-size: 0.9rem;
-      color: #d4a96a;
-      margin-bottom: 36px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .cta-btn {
-      display: inline-block;
-      background: #f5c842;
-      color: #2a1005;
-      font-weight: 900;
       font-size: 1.1rem;
-      padding: 16px 40px;
-      border-radius: 12px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(4rem, 14vw, 9rem);
+      font-weight: 900;
+      color: var(--gold-bright);
+      letter-spacing: 10px;
+      line-height: 0.95;
+      text-shadow: 4px 6px 0px #3a1400, 0 0 60px rgba(212,160,23,0.3);
+      margin-bottom: 24px;
+    }
+
+    .hero-tagline {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+
+    .hero-tagline-2 {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 48px;
+    }
+
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--wood-dark);
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 16px 36px;
+      border-radius: 8px;
       text-decoration: none;
+      letter-spacing: 1px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(212,160,23,0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(212,160,23,0.5);
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 14px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover { background: var(--gold); color: var(--wood-dark); }
+
+    .patent-note {
+      margin-top: 28px;
+      font-size: 0.82rem;
+      color: var(--muted);
       letter-spacing: 0.5px;
-      box-shadow: 0 4px 20px rgba(245,200,66,0.35);
-      transition: transform 0.15s, opacity 0.15s;
     }
 
-    .cta-btn:hover { transform: translateY(-2px); opacity: 0.92; }
-
-    .cta-sub {
-      display: block;
-      margin-top: 12px;
-      font-size: 0.8rem;
-      color: #d4a96a;
+    /* ── INTRO ── */
+    .intro {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 72px 32px;
+      text-align: center;
     }
 
-    /* ── BOARD HERO VISUAL ── */
-    .board-hero {
-      display: flex;
-      justify-content: center;
-      margin: 44px 0 0;
+    .intro p {
+      font-size: 1.25rem;
+      line-height: 1.9;
+      color: var(--cream);
     }
 
-    .bh-board { display: flex; flex-direction: column; align-items: center; }
-    .bh-row { display: flex; }
-
-    .bh-dot {
-      width: 21px; height: 21px;
-      border-radius: 50%;
-      margin: 5px;
-      background: rgba(255,255,255,0.12);
-      border: 1.5px solid rgba(255,255,255,0.08);
-      transition: background 0.3s;
+    /* ── SECTION WRAPPER ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 72px 24px;
     }
 
-    .bh-dot.g { background: #f5c842; border-color: #f5c842; box-shadow: 0 0 10px rgba(245,200,66,0.6); }
-    .bh-dot.center { background: #e05; border-color: #e05; box-shadow: 0 0 13px rgba(220,0,80,0.5); }
-    .bh-sp { width: 31px; height: 31px; }
+    section:nth-child(even) {
+      background: rgba(0,0,0,0.2);
+    }
 
-    /* ── SECTIONS ── */
-    .container { max-width: 800px; margin: 0 auto; padding: 0 24px 60px; }
+    .section-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+    }
 
     .section-title {
-      font-size: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
       font-weight: 900;
-      color: #f5c842;
+      color: var(--gold-bright);
       text-align: center;
-      margin: 52px 0 8px;
-      letter-spacing: 1px;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
     }
 
     .section-sub {
       text-align: center;
-      font-size: 0.9rem;
-      color: #d4a96a;
-      margin-bottom: 28px;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 52px;
     }
 
-    /* ── HOW TO PLAY CARDS ── */
-    .how-grid {
+    /* ── HOW IT WORKS ── */
+    .steps {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
     }
 
-    .how-card-full {
-      grid-column: 1 / -1;
-    }
-
-    @media (max-width: 540px) { .how-grid { grid-template-columns: 1fr; } }
-
-    .how-card {
-      background: #1e0e03;
-      border: 2px solid rgba(245,200,66,0.2);
-      border-radius: 16px;
-      padding: 24px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .step {
+      background: var(--wood-dark);
+      border: 1px solid rgba(212,160,23,0.3);
+      border-radius: 12px;
+      padding: 28px 24px;
       text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
-    .how-icon { font-size: 2rem; margin-bottom: 6px; }
-    .how-title { font-size: 1rem; font-weight: 900; color: #f5c842; margin-bottom: 12px; }
-    .how-body { font-size: 0.86rem; color: #f0ddb8; line-height: 1.7; margin-top: 12px; }
-    .how-sub  { font-size: 0.78rem; color: #d4a96a; line-height: 1.6; margin-top: 6px; }
-    .how-sub.gold { color: #f5c842; font-weight: 700; }
+    .step:hover { border-color: var(--gold); transform: translateY(-4px); }
 
-    /* ── MINI BOARD DOTS ── */
-    .mini-board { display: inline-flex; flex-direction: column; align-items: center; }
-    .mini-row { display: flex; }
-    .dot { width: 10px; height: 10px; border-radius: 50%; margin: 3px; background: #5c2a0c; border: 1.5px solid #f5c842; }
-    .dot.gf { background: #f5c842; border: none; }
-    .dot-sp { width: 16px; height: 16px; }
-    .board-lbl { font-size: 10px; font-weight: 700; color: #f5c842; margin-top: 6px; letter-spacing: 0.5px; }
-
-    /* ── MINI CARDS ── */
-    .mini-cards { display: flex; gap: 4px; align-items: flex-end; justify-content: center; }
-    .mc { background: #fffef6; border: 1px solid #ccc; border-radius: 5px; width: 34px; height: 48px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
-    .mc.sm { width: 27px; height: 38px; }
-    .mc span { font-size: 11px; font-weight: 800; line-height: 1.15; color: #111; }
-    .mc span.r { color: #c41818; }
-
-    /* ── SCORE ROWS ── */
-    .score-row { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 9px 10px; width: 100%; text-align: left; margin-bottom: 7px; }
-    .score-lbl { font-size: 0.8rem; color: #f0ddb8; line-height: 1.4; flex: 1; }
-    .score-lbl strong { color: #f5c842; display: block; font-size: 0.82rem; }
-
-    /* ── CRIB VISUAL ── */
-    .crib-vis { display: flex; align-items: flex-end; gap: 8px; justify-content: center; }
-    .crib-arrow { font-size: 1.3rem; color: #d4a96a; margin-bottom: 4px; }
-    .crib-box { width: 42px; height: 56px; background: #2a1a06; border: 2px solid #f5c842; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
-    .crib-lbl { font-size: 10px; font-weight: 700; color: #f5c842; margin-top: 8px; letter-spacing: 0.5px; }
-
-    /* ── SKUNK TABLE ── */
-    .skunk-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-    .skunk-table td { padding: 9px 12px; font-size: 0.88rem; color: #d4a96a; border-bottom: 1px solid #3a1a08; line-height: 1.5; }
-    .skunk-table tr:last-child td { border-bottom: none; }
-    .skunk-table td:first-child { text-align: center; font-size: 1.1rem; width: 48px; white-space: nowrap; padding: 6px; }
-    .skunk-icon { display: inline-flex; align-items: center; justify-content: center; background: #fff; border-radius: 8px; width: 42px; height: 32px; font-size: 1.05rem; }
-
-    /* ── Baby crib ── */
-    .baby-crib-wrap { display: flex; flex-direction: column; align-items: center; margin: 4px 0; }
-    .baby-crib {
-      position: relative;
-      width: 110px;
-      background: #6b3a10;
-      border-radius: 6px 6px 10px 10px;
-      padding: 8px 6px 10px;
-      border: 2px solid #a06020;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 12px;
     }
-    .crib-hood {
-      position: absolute;
-      top: -18px; left: -2px; right: -2px;
-      height: 22px;
-      background: #8b4a14;
-      border: 2px solid #a06020;
-      border-bottom: none;
-      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+
+    .step h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--cream);
+      margin-bottom: 10px;
     }
-    .crib-slats {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 4px;
+
+    .step p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── DIFFICULTY ── */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .diff-card {
+      border-radius: 14px;
+      padding: 26px 22px;
+      transition: transform 0.2s;
+    }
+
+    .diff-card:hover { transform: translateY(-4px); }
+
+    .diff-card.beginner   { background: linear-gradient(135deg, #0d3d0d, #1a6a1a); border: 1px solid #2d8c2d; }
+    .diff-card.intermediate { background: linear-gradient(135deg, #4a2800, #8b5200); border: 1px solid #c07020; }
+    .diff-card.expert     { background: linear-gradient(135deg, #5a0a0a, #9a1a1a); border: 1px solid #cc2222; }
+    .diff-card.ludicrous  { background: linear-gradient(135deg, #1a0030, #2d0050); border: 2px solid var(--purple-bdr); box-shadow: 0 0 20px rgba(204,0,255,0.2); }
+
+    .diff-emoji { font-size: 2.2rem; margin-bottom: 10px; }
+
+    .diff-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
       margin-bottom: 6px;
     }
-    .crib-slat {
-      width: 3px;
-      height: 18px;
-      background: #a06020;
-      border-radius: 2px;
-    }
-    .crib-cards {
-      display: flex;
-      gap: 2px;
-      justify-content: center;
-    }
-    .crib-card {
-      background: #fffef6;
-      border: 1px solid #bbb;
-      border-radius: 3px;
-      width: 16px;
-      height: 22px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 7px;
-      font-weight: 800;
-      color: #111;
-      line-height: 1.1;
-      flex-shrink: 0;
-    }
-    .crib-card.red { color: #c41818; }
-    .crib-legs {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 8px;
-      margin-top: 4px;
-    }
-    .crib-leg {
-      width: 5px; height: 10px;
-      background: #6b3a10;
-      border-radius: 0 0 3px 3px;
-      border: 1px solid #a06020;
-      border-top: none;
-    }
-    .feature-icon-box { display: inline-flex; align-items: center; justify-content: center; background: #fff; border-radius: 10px; width: 48px; height: 38px; font-size: 1.5rem; margin-bottom: 8px; }
-    .skunk-table td:nth-child(2) { font-weight: 700; color: #f5e6d0; width: 120px; }
-    .skunk-table tr { background: rgba(255,255,255,0.03); }
 
-    /* ── FEATURES STRIP ── */
-    .features {
+    .diff-card.ludicrous h3 { color: #cc00ff; }
+    .diff-card:not(.ludicrous) h3 { color: var(--cream); }
+
+    .diff-card p {
+      font-style: italic;
+      font-size: 0.97rem;
+      line-height: 1.6;
+    }
+
+    .diff-card.beginner p     { color: rgba(180,240,180,0.85); }
+    .diff-card.intermediate p { color: rgba(240,200,140,0.85); }
+    .diff-card.expert p       { color: rgba(240,160,160,0.85); }
+    .diff-card.ludicrous p    { color: rgba(220,180,255,0.85); }
+
+    /* ── DUPLICATE MODE ── */
+    .dup-box {
+      background: var(--wood-dark);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 48px 40px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin: 16px 0;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
     }
 
-    @media (max-width: 480px) { .features { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .dup-box { grid-template-columns: 1fr; } }
+
+    .dup-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--gold-bright);
+      margin-bottom: 16px;
+    }
+
+    .dup-box p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--cream);
+    }
+
+    .dup-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .dup-stat {
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .dup-stat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold-bright);
+    }
+
+    .dup-stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── FEATURES ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
 
     .feature {
-      background: #1e0e03;
-      border: 1px solid rgba(245,200,66,0.15);
+      background: var(--wood-dark);
+      border: 1px solid rgba(212,160,23,0.2);
       border-radius: 12px;
-      padding: 20px 16px;
-      text-align: center;
+      padding: 26px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
     }
 
-    .feature-icon { font-size: 1.8rem; margin-bottom: 8px; }
-    .feature-title { font-size: 0.88rem; font-weight: 700; color: #f5e6d0; margin-bottom: 4px; }
-    .feature-desc { font-size: 0.78rem; color: #d4a96a; line-height: 1.5; }
+    .feature-icon { font-size: 1.8rem; flex-shrink: 0; }
 
-    /* ── PATENT ── */
-    .patent {
+    .feature h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--gold-bright);
+      margin-bottom: 6px;
+    }
+
+    .feature p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── CTA STRIP ── */
+    .cta-strip {
+      background: var(--wood-dark);
+      border-top: 3px solid var(--gold);
+      border-bottom: 3px solid var(--gold);
       text-align: center;
-      margin: 40px 0 0;
-      font-size: 0.78rem;
-      color: #d4a96a;
-      letter-spacing: 0.5px;
+      padding: 72px 32px;
+    }
+
+    .cta-strip h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: var(--gold-bright);
+      margin-bottom: 12px;
+    }
+
+    .cta-strip p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 36px;
+      font-style: italic;
     }
 
     /* ── FOOTER ── */
     footer {
+      position: relative;
+      z-index: 1;
+      background: var(--wood-dark);
+      padding: 40px 32px;
       text-align: center;
-      padding: 24px;
-      color: #d4a96a;
-      font-size: 0.85rem;
-      border-top: 1px solid #4a2510;
     }
 
-    footer a { color: #d4a96a; text-decoration: none; margin: 0 10px; }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gold-bright); }
+
+    .footer-copy {
+      font-size: 0.82rem;
+      color: #5a3a20;
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero { padding: 60px 20px 50px; }
+    }
 
     /* ── DIVIDER ── */
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(245,200,66,0.2), transparent);
-      margin: 48px 0 0;
+    .gold-rule {
+      border: none;
+      border-top: 1px solid rgba(212,160,23,0.3);
+      margin: 0;
     }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════ HERO -->
-<div class="hero">
-  <h1>GRIDBAGE</h1>
-  <p class="tagline">"A little hold'em. A whole lot of out-smart'em."</p>
-  <p class="sub-tagline">Cribbage · STRATEGY-GRID · iOS &amp; Android</p>
-
-  <!-- Mini board visual -->
-  <div class="board-hero">
-    <div class="bh-board">
-      <div class="bh-row"><div class="bh-sp"></div><div class="bh-dot g"></div><div class="bh-sp"></div><div class="bh-sp"></div><div class="bh-sp"></div></div>
-      <div class="bh-row"><div class="bh-dot g"></div><div class="bh-dot g"></div><div class="bh-dot g"></div><div class="bh-sp"></div><div class="bh-sp"></div></div>
-      <div class="bh-row"><div class="bh-sp"></div><div class="bh-dot g"></div><div class="bh-dot center"></div><div class="bh-dot g"></div><div class="bh-sp"></div></div>
-      <div class="bh-row"><div class="bh-sp"></div><div class="bh-sp"></div><div class="bh-dot g"></div><div class="bh-dot g"></div><div class="bh-dot g"></div></div>
-      <div class="bh-row"><div class="bh-sp"></div><div class="bh-sp"></div><div class="bh-sp"></div><div class="bh-dot g"></div><div class="bh-sp"></div></div>
+  <nav>
+    <a href="/" class="nav-logo">GRIDBAGE</a>
+    <div class="nav-links">
+      <a href="#how-it-works">How to Play</a>
+      <a href="#difficulty">Difficulty</a>
+      <a href="#duplicate">Duplicate Mode</a>
+      <a href="support.html">Support</a>
+      <a href="#download" class="nav-cta">Download</a>
     </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-eyebrow">U.S. Patent D976,328</p>
+    <h1 class="hero-title">GRIDBAGE</h1>
+    <p class="hero-tagline">A little hold'em.</p>
+    <p class="hero-tagline-2">A whole lot of out-smart'em.</p>
+    <div class="hero-btns">
+      <a href="#download" class="btn-primary">📱 Download on the App Store</a>
+      <a href="#how-it-works" class="btn-secondary">Learn How to Play</a>
+    </div>
+    <p class="patent-note">Board design protected by U.S. Patent D976,328 · © 2026 GLC Property LLC</p>
   </div>
 
-  <div style="height: 36px;"></div>
-
-  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:0;">
-    <div>
-      <a href="#" class="cta-btn">🍎 Download on the App Store</a>
-    </div>
-    <div>
-      <a href="#" class="cta-btn" style="background:#a06828;">🤖 Get it on Google Play</a>
-    </div>
-  </div>
-  <span class="cta-sub">$0.99 · iPhone &amp; Android</span>
-</div>
-
-<div class="container">
-
-  <!-- ═══════════════════════════════════════════════ WHAT IS IT -->
-  <div class="divider"></div>
-  <p class="section-title">Cribbage. Reimagined.</p>
-  <p class="section-sub" style="font-size:1rem;color:#d4a96a;line-height:1.8;max-width:580px;margin:0 auto 28px;">
-    GRIDBAGE takes the classic card game you love and puts it on a "game play" GRID. Place your cards carefully, outmaneuver a ruthless AI, and rack up cribbage points across your scoring lanes. Every hand is a fresh strategic battle.
-  </p>
-
-  <!-- ═══════════════════════════════════════════════ HOW TO PLAY -->
-  <p class="section-title">How to Play</p>
-  <p class="section-sub">Four things to know before you deal your first hand</p>
-
-  <div class="how-grid">
-
-    <!-- Card 1: The Board -->
-    <div class="how-card">
-      <div class="how-icon">🃏</div>
-      <div class="how-title">The Board is your battle GRID!</div>
-      <div class="mini-board">
-        <div class="mini-row"><div class="dot-sp"></div><div class="dot gf"></div><div class="dot-sp"></div><div class="dot-sp"></div><div class="dot-sp"></div></div>
-        <div class="mini-row"><div class="dot gf"></div><div class="dot gf"></div><div class="dot gf"></div><div class="dot-sp"></div><div class="dot-sp"></div></div>
-        <div class="mini-row"><div class="dot-sp"></div><div class="dot gf"></div><div class="dot" style="background:#ee0055;box-shadow:0 0 6px rgba(220,0,80,0.6);"></div><div class="dot gf"></div><div class="dot-sp"></div></div>
-        <div class="mini-row"><div class="dot-sp"></div><div class="dot-sp"></div><div class="dot gf"></div><div class="dot gf"></div><div class="dot gf"></div></div>
-        <div class="mini-row"><div class="dot-sp"></div><div class="dot-sp"></div><div class="dot-sp"></div><div class="dot gf"></div><div class="dot-sp"></div></div>
-        <div class="board-lbl">THE GRIDBAGE BOARD</div>
-      </div>
-      <p class="how-body">Each player is dealt 8 cards, 2 for the Crib, 5 for the GRID and one HOLD card.</p>
-      <p class="how-sub">The center card — the TURN card — is shared and counts toward both the center row and center column.</p>
-    </div>
-
-    <!-- Card 2: Scoring Lanes -->
-    <div class="how-card">
-      <div class="how-icon">🎯</div>
-      <div class="how-title">Your Scoring Lanes</div>
-      <div style="display:flex;gap:24px;justify-content:center;">
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <div class="mini-board">
-            <div class="mini-row"><div class="dot-sp"></div><div class="dot"></div><div class="dot-sp"></div><div class="dot-sp"></div><div class="dot-sp"></div></div>
-            <div class="mini-row"><div class="dot gf"></div><div class="dot gf"></div><div class="dot gf"></div><div class="dot-sp"></div><div class="dot-sp"></div></div>
-            <div class="mini-row"><div class="dot-sp"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot-sp"></div></div>
-            <div class="mini-row"><div class="dot-sp"></div><div class="dot-sp"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-            <div class="mini-row"><div class="dot-sp"></div><div class="dot-sp"></div><div class="dot-sp"></div><div class="dot"></div><div class="dot-sp"></div></div>
-          </div>
-          <div class="board-lbl">ROWS</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <div class="mini-board">
-            <div class="mini-row"><div class="dot-sp"></div><div class="dot gf"></div><div class="dot-sp"></div><div class="dot-sp"></div><div class="dot-sp"></div></div>
-            <div class="mini-row"><div class="dot"></div><div class="dot gf"></div><div class="dot"></div><div class="dot-sp"></div><div class="dot-sp"></div></div>
-            <div class="mini-row"><div class="dot-sp"></div><div class="dot gf"></div><div class="dot"></div><div class="dot"></div><div class="dot-sp"></div></div>
-            <div class="mini-row"><div class="dot-sp"></div><div class="dot-sp"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-            <div class="mini-row"><div class="dot-sp"></div><div class="dot-sp"></div><div class="dot-sp"></div><div class="dot"></div><div class="dot-sp"></div></div>
-          </div>
-          <div class="board-lbl">COLUMNS</div>
-        </div>
-      </div>
-      <p class="how-body">Each game you choose Rows or Columns. Your 3 gold lanes are yours to score.</p>
-      <p class="how-sub gold">Gold outlines show your lanes at the start of each game. The AI scores the opposite.</p>
-    </div>
-
-    <!-- Card 3: How to Score -->
-    <div class="how-card">
-      <div class="how-icon">📊</div>
-      <div class="how-title">How to Score</div>
-      <div style="width:100%;">
-        <div class="score-row">
-          <div class="mini-cards">
-            <div class="mc"><span>7</span><span>♠</span></div>
-            <div class="mc"><span class="r">8</span><span class="r">♥</span></div>
-          </div>
-          <div class="score-lbl"><strong>Fifteens +2 each</strong>Cards totalling 15 (face = 10)</div>
-        </div>
-        <div class="score-row">
-          <div class="mini-cards">
-            <div class="mc"><span class="r">K</span><span class="r">♦</span></div>
-            <div class="mc"><span>K</span><span>♣</span></div>
-          </div>
-          <div class="score-lbl"><strong>Pairs +2 each</strong>Same rank</div>
-        </div>
-        <div class="score-row">
-          <div class="mini-cards">
-            <div class="mc sm"><span>4</span><span>♣</span></div>
-            <div class="mc sm"><span class="r">5</span><span class="r">♦</span></div>
-            <div class="mc sm"><span>6</span><span>♠</span></div>
-          </div>
-          <div class="score-lbl"><strong>Runs +1 per card</strong>3+ consecutive ranks</div>
-        </div>
-      </div>
-      <p class="how-body">Your HOLD card + 3 GRID cards + the shared Classic Cribbage CUT Card = 5-card classic cribbage scoring in every lane.</p>
-      <p class="how-sub" style="color:#d4a96a;margin-top:6px;font-size:0.78rem;line-height:1.7;">Also scores: <strong style="color:#f0ddb8;">Flush</strong> — 4–5 same suit</p>
-      <p class="how-sub" style="color:#d4a96a;margin-bottom:6px;font-size:0.78rem;line-height:1.7;"><strong style="color:#f0ddb8;">Nobs</strong> — Jack matching CUT Card suit</p>
-      <p style="font-size:1.4rem;color:#f0ddb8;text-align:center;margin-top:8px;margin-bottom:4px;line-height:1.5;font-weight:800;">
-        First to <strong style="color:#f5c842;">121</strong> wins!
-      </p>
-      <p class="how-sub" style="text-align:center;margin-bottom:6px;">For the loser, games count as...</p>
-      <table class="skunk-table">
-        <tr><td><div class="skunk-icon" style="background:#c41818;color:#fff;font-weight:900;font-size:1.1rem;">L</div></td><td>91–120 pts</td><td>Regular loss</td></tr>
-        <tr><td><div class="skunk-icon">🦨</div></td><td>61–90 pts</td><td>Skunk — 2 losses</td></tr>
-        <tr><td><div class="skunk-icon">🦨🦨</div></td><td>0–60 pts</td><td>Double skunk — 3 losses</td></tr>
-      </table>
-    </div>
-
-    <!-- Card 4: The Crib -->
-    <div class="how-card">
-      <div class="how-icon">👶</div>
-      <div class="how-title">The Crib</div>
-      <div class="baby-crib-wrap">
-        <div class="baby-crib">
-          <div class="crib-hood"></div>
-          <div class="crib-slats">
-            <div class="crib-slat"></div><div class="crib-slat"></div><div class="crib-slat"></div>
-            <div class="crib-slat"></div><div class="crib-slat"></div><div class="crib-slat"></div>
-          </div>
-          <div class="crib-cards">
-            <div class="crib-card">A<span>♠</span></div>
-            <div class="crib-card red">K<span>♥</span></div>
-            <div class="crib-card">J<span>♣</span></div>
-            <div class="crib-card red">7<span>♦</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="crib-lbl">DISCARD 2 CARDS BEFORE PLAY</div>
-      <p class="how-body">Before play begins, each player discards 2 cards to the Crib — an extra bonus hand scored by the dealer at the end of the round by using the 4 crib cards and the CUT card.</p>
-      <p class="how-sub">You take turns dealing so the Crib advantage alternates every game.</p>
-    </div>
-
-    <!-- Card 5: Extra GRIDBAGE Rules -->
-    <div class="how-card how-card-full" style="text-align:left;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;width:100%;">
-        <div class="how-icon" style="margin-bottom:0;">📋</div>
-        <div class="how-title" style="margin-bottom:0;">A Few Extra GRIDBAGE Rules</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:12px;width:100%;">
-        <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;">
-          <span style="color:#f5c842;font-size:1.1rem;flex-shrink:0;">🃏</span>
-          <p style="font-size:0.88rem;color:#f0ddb8;line-height:1.7;margin:0;">The dealer places the first card onto the GRID after the TURN card is shown.</p>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;">
-          <span style="color:#f5c842;font-size:1.1rem;flex-shrink:0;">🔢</span>
-          <p style="font-size:0.88rem;color:#f0ddb8;line-height:1.7;margin:0;">Hands are counted left to right and top to bottom. The non-dealer counts one lane first, then the dealer counts their first lane and their Crib, then players alternate counting their remaining lanes until done.</p>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;">
-          <span style="color:#f5c842;font-size:1.1rem;flex-shrink:0;">🂠</span>
-          <p style="font-size:0.88rem;color:#f0ddb8;line-height:1.7;margin:0;">You play with 50 cards — the 5♥ and 5♦ are removed from the deck.</p>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /how-grid -->
-
-  <!-- ═══════════════════════════════════════════════ FEATURES -->
-  <div class="divider"></div>
-  <p class="section-title">Built for iOS &amp; Android</p>
-  <p class="section-sub">Everything you'd expect from a premium card game</p>
-
-  <div class="features">
-    <div class="feature">
-      <div class="feature-icon">🤖</div>
-      <div class="feature-title">Ruthless AI</div>
-      <div class="feature-desc">Plays defensively and aggressively — a real challenge every time</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">📊</div>
-      <div class="feature-title">Stats Tracking</div>
-      <div class="feature-desc">Win rate, avg score, skunks given and received</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon-box">🦨</div>
-      <div class="feature-title">Skunk Rules</div>
-      <div class="feature-desc">Classic skunk and double skunk penalties keep every point meaningful</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">👶</div>
-      <div class="feature-title">Crib Bonus</div>
-      <div class="feature-desc">The dealer scores an extra bonus hand — strategy starts with your two-card discard to the Crib</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🔇</div>
-      <div class="feature-title">Polished Audio</div>
-      <div class="feature-desc">Scoring sounds, win fanfare — and respects your silent switch</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">📜</div>
-      <div class="feature-title">Patented Design</div>
-      <div class="feature-desc">U.S. Patent D976,328 — an original game you won't find anywhere else</div>
-    </div>
+  <!-- INTRO -->
+  <div class="intro">
+    <p>Gridbage is a bold reinvention of the classic card game cribbage — blending the deep strategy of hold'em poker with the beloved scoring traditions of cribbage. Every placement is a decision. Every card you hold is a weapon.</p>
   </div>
 
-  <!-- ═══════════════════════════════════════════════ BOTTOM CTA -->
-  <div class="divider"></div>
-  <div style="text-align:center;padding:48px 0 20px;">
-    <p style="font-size:1.1rem;color:#d4a96a;margin-bottom:24px;line-height:1.8;">
-      Think you can out-smart the AI?<br>
-      <span style="color:#f5c842;font-weight:700;">121 points. 3 GRID lanes. One winner.</span>
-    </p>
-    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:12px;">
-      <a href="#" class="cta-btn">🍎 Download on the App Store</a>
-      <a href="#" class="cta-btn" style="background:#a06828;">🤖 Get it on Google Play</a>
+  <hr class="gold-rule"/>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works">
+    <div class="section-inner">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">Simple to learn. A lifetime to master.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Get Dealt 8 Cards</h3>
+          <p>Both players receive 8 cards. Choose 2 to discard into the crib — a bonus hand scored at the end.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Build the Grid</h3>
+          <p>Take turns placing your remaining 6 cards onto a unique triangular grid board. Every move blocks your opponent while setting up your own lines.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Reveal the Cut</h3>
+          <p>The cut card is revealed. Every row and column scores like cribbage — fifteens, pairs, runs, flushes, nobs. The center card is shared by all.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Race to 121</h3>
+          <p>Watch your pegs race around the classic oval cribbage board. First to 121 wins. Skunks and double skunks count.</p>
+        </div>
+      </div>
     </div>
-    <span style="font-size:0.82rem;color:#d4a96a;">$0.99 · iPhone &amp; Android</span>
+  </section>
+
+  <hr class="gold-rule"/>
+
+  <!-- DIFFICULTY -->
+  <section id="difficulty">
+    <div class="section-inner">
+      <h2 class="section-title">Choose Your Challenge</h2>
+      <p class="section-sub">Four levels. Four very different experiences.</p>
+      <div class="diff-grid">
+        <div class="diff-card beginner">
+          <div class="diff-emoji">🌱</div>
+          <h3>Beginner</h3>
+          <p>"I know a little cribbage..."<br/><br/>The AI makes mistakes and gifts you scoring cards in the crib. A great way to learn without getting crushed.</p>
+        </div>
+        <div class="diff-card intermediate">
+          <div class="diff-emoji">⚔️</div>
+          <h3>Intermediate</h3>
+          <p>"I picked a bad week to...stop playing beginner."<br/><br/>The AI plays smart half the time and gives you a chance the other half.</p>
+        </div>
+        <div class="diff-card expert">
+          <div class="diff-emoji">💀</div>
+          <h3>Expert</h3>
+          <p>"To the Pain..."<br/><br/>The AI reads your hand, plans ahead, and plays to win. No gifts. No mercy.</p>
+        </div>
+        <div class="diff-card ludicrous">
+          <div class="diff-emoji">🚀</div>
+          <h3>Ludicrous Speed</h3>
+          <p>"Surely you can't be serious."<br/><br/>The AI knows the cut card before the game starts and uses it for every decision. Pure computational carnage.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="gold-rule"/>
+
+  <!-- DUPLICATE MODE -->
+  <section id="duplicate">
+    <div class="section-inner">
+      <h2 class="section-title">Duplicate Card Mode</h2>
+      <p class="section-sub">Eliminate luck. Measure pure skill.</p>
+      <div class="dup-box">
+        <div>
+          <h3>The Same Cards. Different Choices.</h3>
+          <p>Play the exact same cards your AI opponent plays — then swap and play their cards too. At the end, see a full comparison breakdown by hand and set. No lucky draws. No excuses. Just pure cribbage skill, exposed.</p>
+        </div>
+        <div class="dup-stats">
+          <div class="dup-stat">
+            <div class="dup-stat-val">🃏</div>
+            <div class="dup-stat-label">Matched Hands</div>
+          </div>
+          <div class="dup-stat">
+            <div class="dup-stat-val">📊</div>
+            <div class="dup-stat-label">Full Breakdown</div>
+          </div>
+          <div class="dup-stat">
+            <div class="dup-stat-val">🏆</div>
+            <div class="dup-stat-label">Per-Hand Winner</div>
+          </div>
+          <div class="dup-stat">
+            <div class="dup-stat-val">0</div>
+            <div class="dup-stat-label">Luck Required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="gold-rule"/>
+
+  <!-- FEATURES -->
+  <section>
+    <div class="section-inner">
+      <h2 class="section-title">Built for Cribbage Players</h2>
+      <p class="section-sub">Everything you love about cribbage. Everything you've been missing.</p>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <div>
+            <h4>Patented Grid Board</h4>
+            <p>A unique triangular grid (U.S. Patent D976,328) where rows and columns are cribbage hands waiting to be scored.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🦨</div>
+          <div>
+            <h4>Classic Cribbage Track</h4>
+            <p>A beautifully rendered oval peg board. Skunks (91+) and double skunks (61+) both tracked and counted.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🚫</div>
+          <div>
+            <h4>No Ads. Ever.</h4>
+            <p>No advertisements, no in-app purchases, no account required. Pay once, play forever.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔒</div>
+          <div>
+            <h4>Complete Privacy</h4>
+            <p>Zero data collected. No tracking. No analytics. Everything stays on your device. Always.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📶</div>
+          <div>
+            <h4>Fully Offline</h4>
+            <p>No internet connection needed. Play on a plane, in the woods, anywhere.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📊</div>
+          <div>
+            <h4>Statistics Tracking</h4>
+            <p>Win/loss records, average scores, best scores, skunks given and received — all stored locally on your device.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-strip" id="download">
+    <h2>Ready to Play?</h2>
+    <p>Available now on iPhone. Free to download.</p>
+    <a href="https://apps.apple.com" class="btn-primary">📱 Download on the App Store</a>
   </div>
 
-  <p class="patent">Board Design: U.S. Patent D976,328 · Co-invented by Drew &amp; Neil</p>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="#how-it-works">How to Play</a>
+      <a href="#difficulty">Difficulty Levels</a>
+      <a href="#duplicate">Duplicate Mode</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="support.html">Support</a>
+    </div>
+    <p class="footer-copy">© 2026 GLC Property LLC · U.S. Patent D976,328 · gridbage.com</p>
+  </footer>
 
-</div>
-
-<footer>
-  <a href="#">App Store</a>
-  <a href="#">Google Play</a>
-  <a href="/support.html">Support</a>
-  <a href="/privacy.html">Privacy Policy</a>
-  <a href="/cdn-cgi/l/email-protection#dba8aeababb4a9af9bbca9b2bfb9babcbef5b8b4b6">Contact</a>
-  <div style="margin-top:8px;">&copy; 2025 GRIDBAGE. All rights 
+</body>
+</html>
