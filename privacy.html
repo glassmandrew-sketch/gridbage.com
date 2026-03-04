@@ -3,160 +3,310 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Privacy Policy — GRIDBAGE</title>
-  <meta name="description" content="Gridbage privacy policy. We collect zero data."/>
-  <meta name="theme-color" content="#0a1628"/>
+  <title>Privacy Policy – GRIDBAGE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --navy: #0a1628;
-      --deep: #111d32;
-      --gold: #d4a843;
-      --gold-bright: #f0c95c;
-      --cream: #f4efe6;
-      --muted: #8a9ab5;
-    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --wood:        #6b3410;
+      --wood-dark:   #1a0800;
+      --wood-mid:    #3b1a08;
+      --wood-light:  #8b4820;
+      --gold:        #d4a017;
+      --gold-bright: #f0c040;
+      --gold-dim:    #a07010;
+      --cream:       #f5ead8;
+      --muted:       #b08060;
+    }
+
     html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--navy);
+      font-family: 'Crimson Pro', Georgia, serif;
+      background: var(--wood-mid);
       color: var(--cream);
-      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    a { color: var(--gold); text-decoration: none; transition: color .2s; }
-    a:hover { color: var(--gold-bright); }
 
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        repeating-linear-gradient(92deg, transparent, transparent 120px, rgba(255,210,140,0.025) 121px),
+        repeating-linear-gradient(88deg, transparent, transparent 200px, rgba(0,0,0,0.04) 201px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(10,22,40,.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(212,168,67,.15);
-      padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--wood-dark);
+      border-bottom: 2px solid var(--gold);
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-    .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; letter-spacing: 2px; color: var(--gold); }
-    .nav-links { display: flex; gap: 1.5rem; }
-    .nav-links a { color: var(--muted); font-size: .85rem; font-weight: 500; letter-spacing: .5px; text-transform: uppercase; }
-    .nav-links a:hover { color: var(--gold); }
 
-    .page-header {
-      padding: 7rem 1.5rem 3rem;
-      text-align: center;
-      background: radial-gradient(ellipse at 50% 30%, rgba(212,168,67,.06) 0%, transparent 60%), var(--navy);
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--gold-bright);
+      letter-spacing: 5px;
+      text-decoration: none;
+      text-shadow: 2px 2px 0 #5a2d0c, 0 0 20px rgba(240,192,64,0.3);
     }
+
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold-bright); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      position: relative;
+      z-index: 1;
+      background: var(--wood-dark);
+      border-bottom: 3px solid var(--gold);
+      text-align: center;
+      padding: 64px 32px 52px;
+      overflow: hidden;
+    }
+
+    .page-header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 40%, rgba(212,160,23,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
     .page-header h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 900; letter-spacing: 3px; color: var(--gold);
-      margin-bottom: .75rem;
-    }
-    .page-header p { color: var(--muted); font-size: 1rem; }
-
-    .zero-badge {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: rgba(46,204,113,.1); border: 1px solid rgba(46,204,113,.3);
-      border-radius: 20px; padding: .4rem 1.2rem; margin-top: 1rem;
-      font-size: .8rem; color: #2ecc71; font-weight: 600;
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      font-weight: 900;
+      color: var(--gold-bright);
+      letter-spacing: 6px;
+      text-shadow: 3px 3px 0 #5a2d0c;
+      margin-bottom: 12px;
+      position: relative;
     }
 
-    .policy-content {
-      max-width: 680px; margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
+    .page-header p {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1rem;
+      position: relative;
     }
-    .policy-content h2 {
+
+    /* ── CONTAINER ── */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 64px 32px 80px;
+    }
+
+    /* ── SECTIONS ── */
+    .section-block {
+      margin-bottom: 48px;
+    }
+
+    .section-block h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.3rem; color: var(--cream);
-      margin: 2.5rem 0 .75rem;
-    }
-    .policy-content p {
-      color: var(--muted); font-size: .9rem; line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-    .policy-content ul {
-      color: var(--muted); font-size: .9rem; line-height: 1.8;
-      padding-left: 1.25rem; margin-bottom: 1rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(212,160,23,0.25);
+      letter-spacing: 1px;
     }
 
-    footer {
-      border-top: 1px solid rgba(212,168,67,.1);
-      padding: 2rem 1.5rem; text-align: center;
+    .section-block p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 12px;
     }
-    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .footer-links a { color: var(--muted); font-size: .8rem; }
-    .footer-links a:hover { color: var(--gold); }
-    .footer-copy { font-size: .7rem; color: rgba(138,154,181,.4); }
+
+    .section-block a {
+      color: var(--gold-bright);
+      text-decoration: none;
+    }
+    .section-block a:hover { text-decoration: underline; }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight-box {
+      background: var(--wood-dark);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      padding: 36px 32px;
+      text-align: center;
+      margin-bottom: 52px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(212,160,23,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .highlight-box .big-icon {
+      font-size: 2.8rem;
+      margin-bottom: 16px;
+      display: block;
+      position: relative;
+    }
+
+    .highlight-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold-bright);
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .highlight-box p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 560px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      background: var(--wood-dark);
+      border-top: 1px solid rgba(212,160,23,0.2);
+      padding: 40px 32px;
+      text-align: center;
+    }
+
+    .footer-suits {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      opacity: 0.2;
+      letter-spacing: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold-bright); }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: rgba(176,128,96,0.5);
+    }
 
     @media (max-width: 600px) {
-      nav { padding: 0 1rem; }
-      .nav-links { gap: .75rem; }
-      .nav-links a { font-size: .75rem; }
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      .container { padding: 40px 20px 60px; }
     }
   </style>
 </head>
 <body>
 
   <nav>
-    <a href="/" class="nav-brand">GRIDBAGE</a>
+    <a href="/" class="nav-logo">GRIDBAGE</a>
     <div class="nav-links">
       <a href="/">Home</a>
-      <a href="privacy.html">Privacy</a>
       <a href="support.html">Support</a>
     </div>
   </nav>
 
   <div class="page-header">
     <h1>Privacy Policy</h1>
-    <p>Effective February 26, 2026 · GLC Property LLC</p>
-    <div class="zero-badge">🔒 Zero Data Collected</div>
+    <p>Effective date: January 1, 2026</p>
   </div>
 
-  <div class="policy-content">
+  <div class="container">
 
-    <h2>Overview</h2>
-    <p>Gridbage is designed with one privacy principle: we collect nothing. No personal data, no usage analytics, no advertising identifiers, and no crash reports are transmitted from your device. Ever.</p>
+    <div class="highlight-box">
+      <span class="big-icon">🔒</span>
+      <h2>Your Privacy in Plain English</h2>
+      <p>Gridbage collects nothing. No data is gathered, stored, transmitted, or shared — ever. There is no account, no login, no server, and no third-party tracking of any kind.</p>
+    </div>
 
-    <h2>Data We Collect</h2>
-    <p>None. Gridbage does not collect, transmit, store, or process any data from your device. Specifically:</p>
-    <ul>
-      <li>No personal information (name, email, phone, location)</li>
-      <li>No device identifiers (IDFA, IDFV, fingerprints)</li>
-      <li>No usage or behavioral analytics</li>
-      <li>No crash reports or diagnostics</li>
-      <li>No advertising or tracking identifiers</li>
-      <li>No cookies, pixels, or third-party SDKs</li>
-    </ul>
+    <div class="section-block">
+      <h2>Information We Collect</h2>
+      <p>We collect no personal information. Gridbage does not request access to your name, email address, location, contacts, camera, microphone, or any other personal data.</p>
+      <p>The app does not include any analytics SDKs, crash reporting tools, advertising networks, or any other third-party data collection frameworks.</p>
+    </div>
 
-    <h2>Local Storage</h2>
-    <p>Game statistics (win/loss records, scores, skunks) are stored locally on your device using standard on-device storage. This data never leaves your device and is not accessible to us or any third party. If you delete the app, this data is permanently removed.</p>
+    <div class="section-block">
+      <h2>Game Data & Statistics</h2>
+      <p>All game statistics (wins, losses, scores, skunks) are stored exclusively on your device using local storage. This data never leaves your device and is not accessible to us or anyone else.</p>
+      <p>If you delete the app or restore your device from a backup, this locally stored data may be lost. We have no ability to recover it remotely.</p>
+    </div>
 
-    <h2>Third-Party Services</h2>
-    <p>Gridbage uses no third-party analytics, advertising, or data-processing services. There are no SDKs, frameworks, or libraries in the app that transmit data off your device.</p>
+    <div class="section-block">
+      <h2>Third-Party Services</h2>
+      <p>Gridbage does not integrate with any third-party services. There are no advertising networks, no analytics platforms, no social login integrations, and no external API calls of any kind.</p>
+    </div>
 
-    <h2>Children's Privacy</h2>
-    <p>Because Gridbage collects no data of any kind, it is inherently compliant with COPPA and all children's privacy regulations. No special data practices apply because there is no data collection.</p>
+    <div class="section-block">
+      <h2>Children's Privacy</h2>
+      <p>Gridbage is rated 4+ and is appropriate for all ages. Because we collect no data from any users, the app fully complies with COPPA and all applicable children's privacy regulations.</p>
+    </div>
 
-    <h2>Internet Access</h2>
-    <p>Gridbage does not require or use an internet connection. The app functions entirely offline. No network requests are made at any time during use.</p>
+    <div class="section-block">
+      <h2>Changes to This Policy</h2>
+      <p>If we ever update this privacy policy, we will revise the effective date at the top of this page. Given the nature of the app — zero data collection — meaningful changes are unlikely. We encourage you to review this policy periodically.</p>
+    </div>
 
-    <h2>Changes to This Policy</h2>
-    <p>If we ever change our data practices, we will update this page. Given that our current practice is to collect nothing, any change would be announced prominently in the app and on this page before taking effect.</p>
-
-    <h2>Contact</h2>
-    <p>Questions or concerns about this privacy policy? Contact us at <a href="mailto:support@gridbage.com">support@gridbage.com</a>.</p>
+    <div class="section-block">
+      <h2>Contact</h2>
+      <p>Questions about this privacy policy? Email us at <a href="mailto:support@gridbage.com">support@gridbage.com</a> or visit <a href="https://www.gridbage.com">www.gridbage.com</a>.</p>
+    </div>
 
   </div>
 
   <footer>
+    <div class="footer-suits">♠ ♥ ♣ ♦</div>
     <div class="footer-links">
       <a href="/">Home</a>
-      <a href="privacy.html">Privacy Policy</a>
       <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
     </div>
-    <p class="footer-copy">© 2026 GLC Property LLC · U.S. Patent D976,328 · gridbage.com</p>
+    <p class="footer-copy">© 2026 GLC Property LLC &nbsp;·&nbsp; U.S. Patent D976,328 &nbsp;·&nbsp; gridbage.com</p>
   </footer>
 
 </body>
