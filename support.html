@@ -3,153 +3,362 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Support — GRIDBAGE</title>
-  <meta name="description" content="Get help with Gridbage. FAQs, troubleshooting, and contact support."/>
-  <meta name="theme-color" content="#0a1628"/>
+  <title>Support – GRIDBAGE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --navy: #0a1628;
-      --deep: #111d32;
-      --card: #182840;
-      --gold: #d4a843;
-      --gold-bright: #f0c95c;
-      --cream: #f4efe6;
-      --muted: #8a9ab5;
-    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --wood:        #6b3410;
+      --wood-dark:   #1a0800;
+      --wood-mid:    #3b1a08;
+      --wood-light:  #8b4820;
+      --gold:        #d4a017;
+      --gold-bright: #f0c040;
+      --gold-dim:    #a07010;
+      --cream:       #f5ead8;
+      --muted:       #b08060;
+    }
+
     html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--navy);
+      font-family: 'Crimson Pro', Georgia, serif;
+      background: var(--wood-mid);
       color: var(--cream);
-      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    a { color: var(--gold); text-decoration: none; transition: color .2s; }
-    a:hover { color: var(--gold-bright); }
 
-    /* NAV */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        repeating-linear-gradient(92deg, transparent, transparent 120px, rgba(255,210,140,0.025) 121px),
+        repeating-linear-gradient(88deg, transparent, transparent 200px, rgba(0,0,0,0.04) 201px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(10,22,40,.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(212,168,67,.15);
-      padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--wood-dark);
+      border-bottom: 2px solid var(--gold);
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-    .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; letter-spacing: 2px; color: var(--gold); }
-    .nav-links { display: flex; gap: 1.5rem; }
-    .nav-links a { color: var(--muted); font-size: .85rem; font-weight: 500; letter-spacing: .5px; text-transform: uppercase; }
-    .nav-links a:hover { color: var(--gold); }
 
-    /* PAGE HEADER */
-    .page-header {
-      padding: 7rem 1.5rem 3rem;
-      text-align: center;
-      background: radial-gradient(ellipse at 50% 30%, rgba(212,168,67,.06) 0%, transparent 60%), var(--navy);
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--gold-bright);
+      letter-spacing: 5px;
+      text-decoration: none;
+      text-shadow: 2px 2px 0 #5a2d0c, 0 0 20px rgba(240,192,64,0.3);
     }
+
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold-bright); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      position: relative;
+      z-index: 1;
+      background: var(--wood-dark);
+      border-bottom: 3px solid var(--gold);
+      text-align: center;
+      padding: 64px 32px 52px;
+      overflow: hidden;
+    }
+
+    .page-header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 40%, rgba(212,160,23,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
     .page-header h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 900; letter-spacing: 3px; color: var(--gold);
-      margin-bottom: .75rem;
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      font-weight: 900;
+      color: var(--gold-bright);
+      letter-spacing: 6px;
+      text-shadow: 3px 3px 0 #5a2d0c;
+      margin-bottom: 12px;
+      position: relative;
     }
-    .page-header p { color: var(--muted); font-size: 1rem; }
 
-    /* FAQ */
-    .faq-container { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-    .faq-group-label {
-      font-size: .75rem; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--gold); margin: 2.5rem 0 1rem; font-weight: 600;
+    .page-header p {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1rem;
+      position: relative;
     }
-    .faq-item {
-      border: 1px solid rgba(212,168,67,.1);
-      border-radius: 10px; margin-bottom: .75rem;
-      background: var(--deep); overflow: hidden; cursor: pointer;
-      transition: border-color .3s;
-    }
-    .faq-item:hover { border-color: rgba(212,168,67,.25); }
-    .faq-q {
-      padding: 1.1rem 1.25rem;
-      font-weight: 600; font-size: .95rem; color: var(--cream);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .faq-toggle { color: var(--gold); font-size: 1.2rem; transition: transform .3s; }
-    .faq-item.open .faq-toggle { transform: rotate(45deg); }
-    .faq-a {
-      max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s ease;
-      padding: 0 1.25rem;
-      font-size: .9rem; color: var(--muted); line-height: 1.7;
-    }
-    .faq-item.open .faq-a { max-height: 600px; padding: 0 1.25rem 1.25rem; }
 
-    /* CONTACT */
+    /* ── CONTAINER ── */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 64px 32px 80px;
+    }
+
+    /* ── CONTACT BOX ── */
     .contact-box {
-      max-width: 720px; margin: 0 auto 4rem;
-      background: var(--deep); border: 1px solid rgba(212,168,67,.1);
-      border-radius: 12px; padding: 2rem; text-align: center;
+      background: var(--wood-dark);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 40px 32px;
+      text-align: center;
+      margin-bottom: 56px;
+      position: relative;
+      overflow: hidden;
     }
-    .contact-box h3 { color: var(--cream); margin-bottom: .5rem; }
-    .contact-box p { color: var(--muted); font-size: .9rem; }
 
-    /* FOOTER */
-    footer {
-      border-top: 1px solid rgba(212,168,67,.1);
-      padding: 2rem 1.5rem; text-align: center;
+    .contact-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(212,160,23,0.07) 0%, transparent 65%);
+      pointer-events: none;
     }
-    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .footer-links a { color: var(--muted); font-size: .8rem; }
-    .footer-links a:hover { color: var(--gold); }
-    .footer-copy { font-size: .7rem; color: rgba(138,154,181,.4); }
+
+    .contact-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--gold-bright);
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .contact-box p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 28px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--wood-dark);
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .contact-btn:hover { background: var(--gold-bright); }
+
+    /* ── FAQ ── */
+    .faq-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold-bright);
+      margin-bottom: 32px;
+      letter-spacing: 2px;
+    }
+
+    .faq-group-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin: 40px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(212,160,23,0.3);
+    }
+
+    .faq-item {
+      background: var(--wood-dark);
+      border: 1px solid rgba(212,160,23,0.2);
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover { border-color: rgba(212,160,23,0.5); }
+    .faq-item.open { border-color: var(--gold); }
+
+    .faq-q {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--cream);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+    }
+
+    .faq-toggle {
+      color: var(--gold);
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      transition: transform 0.25s;
+      line-height: 1;
+    }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+    .faq-a {
+      display: none;
+      margin-top: 16px;
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-a a { color: var(--gold-bright); text-decoration: none; }
+    .faq-a a:hover { text-decoration: underline; }
+
+    /* skunk table inside FAQ */
+    .skunk-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 0.95rem;
+    }
+    .skunk-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(212,160,23,0.15);
+      color: var(--muted);
+    }
+    .skunk-table td:first-child { font-size: 1.1rem; width: 36px; }
+    .skunk-table td:last-child { color: var(--cream); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      background: var(--wood-dark);
+      border-top: 1px solid rgba(212,160,23,0.2);
+      padding: 40px 32px;
+      text-align: center;
+    }
+
+    .footer-suits {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      opacity: 0.2;
+      letter-spacing: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold-bright); }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: rgba(176,128,96,0.5);
+    }
 
     @media (max-width: 600px) {
-      nav { padding: 0 1rem; }
-      .nav-links { gap: .75rem; }
-      .nav-links a { font-size: .75rem; }
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      .container { padding: 40px 20px 60px; }
     }
   </style>
 </head>
 <body>
 
   <nav>
-    <a href="/" class="nav-brand">GRIDBAGE</a>
+    <a href="/" class="nav-logo">GRIDBAGE</a>
     <div class="nav-links">
       <a href="/">Home</a>
       <a href="privacy.html">Privacy</a>
-      <a href="support.html">Support</a>
     </div>
   </nav>
 
   <div class="page-header">
     <h1>Support</h1>
-    <p>Frequently asked questions and how to get help.</p>
+    <p>Questions, bugs, or feedback — we read and respond to every message.</p>
   </div>
 
-  <div class="faq-container">
+  <div class="container">
+
+    <div class="contact-box">
+      <h2>Get in Touch</h2>
+      <p>Have a bug to report, a question about the rules, or feedback on the game? Send us an email and we'll get back to you as quickly as possible.</p>
+      <a href="mailto:support@gridbage.com" class="contact-btn">✉️ support@gridbage.com</a>
+    </div>
+
+    <h2 class="faq-title">Frequently Asked Questions</h2>
 
     <p class="faq-group-label">Gameplay</p>
 
     <div class="faq-item" onclick="toggle(this)">
-      <div class="faq-q">How does Gridbage scoring work?<span class="faq-toggle">+</span></div>
-      <div class="faq-a">Gridbage uses standard cribbage scoring. Every row and column on the triangular grid is scored as a cribbage hand — fifteens (2 pts each), pairs (2 pts), runs (1 pt per card), flushes (1 pt per card), and nobs (1 pt for a Jack matching the cut suit). The center card is shared by every line that passes through it. Crib scoring follows the same rules, and the dealer's crib is scored at the end of each round.</div>
+      <div class="faq-q">How do I score points in Gridbage?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">Each row and column on the triangular grid is scored like a cribbage hand — fifteens (2 pts each), pairs (2 pts), runs (1 pt per card in the run), flushes (4 or 5 pts), and nobs (1 pt if your Jack matches the cut card's suit). The center card is shared by all rows and columns. After all cards are placed and the cut card is revealed, every complete line scores automatically.</div>
     </div>
 
     <div class="faq-item" onclick="toggle(this)">
-      <div class="faq-q">What is the crib and how does it work?<span class="faq-toggle">+</span></div>
-      <div class="faq-a">Each round, both players discard 2 cards from their 8-card hand into the crib. The crib is a bonus hand scored by the dealer at the end of the round using standard cribbage scoring, including the cut card. Choosing what to put into the crib — especially when your opponent is the dealer — is one of the deepest strategic decisions in Gridbage.</div>
+      <div class="faq-q">What is the crib?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">The crib is a bonus hand scored at the end of each round. Each player discards 2 cards into it before placing cards on the grid. The dealer scores the crib — so strategy includes choosing which cards to throw in (or keep out of) the crib based on who the dealer is. The dealer alternates each game.</div>
     </div>
 
     <div class="faq-item" onclick="toggle(this)">
       <div class="faq-q">What is the cut card?<span class="faq-toggle">+</span></div>
-      <div class="faq-a">After both players discard to the crib and before placement begins, a cut card is drawn from the remaining deck. This card contributes to the scoring of every row, column, and the crib — just like in traditional cribbage. If the cut card is a Jack, the dealer scores 2 points immediately ("His Heels").</div>
+      <div class="faq-a">The cut card (also called the "starter") is drawn from the deck after all cards are placed and shared by both players. It scores in every line on the grid and in the crib. In Ludicrous Speed mode, the AI knows the cut card before the game even begins — and uses that information for every decision it makes.</div>
     </div>
 
     <div class="faq-item" onclick="toggle(this)">
-      <div class="faq-q">What are skunks and double skunks?<span class="faq-toggle">+</span></div>
-      <div class="faq-a">A skunk occurs when the winner crosses 121 while the loser hasn't passed 91. A double skunk is when the loser hasn't passed 61. Both are tracked in your stats.</div>
+      <div class="faq-q">What is a skunk — and a double skunk?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">A skunk occurs when the winning player reaches 121 before the loser reaches 91. A double skunk is when the loser hasn't reached 61. In tournament cribbage, these count as extra losses. Gridbage tracks both for your statistics.
+        <table class="skunk-table">
+          <tr><td>🏆</td><td>91 – 120 pts</td><td>Regular loss</td></tr>
+          <tr><td>🦨</td><td>61 – 90 pts</td><td>Skunk — counts as 2 losses</td></tr>
+          <tr><td>🦨🦨</td><td>0 – 60 pts</td><td>Double skunk — counts as 3 losses</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">What is Duplicate Card mode?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">Duplicate Card mode deals the same cards to both you and the AI across matched sets — you each play the other's hand. At the end, a full comparison table shows each hand's results side-by-side with a score differential. It's designed to eliminate luck entirely and measure pure decision-making skill. No lucky draws. No excuses.</div>
     </div>
 
     <p class="faq-group-label">Difficulty Levels</p>
@@ -157,8 +366,8 @@
     <div class="faq-item" onclick="toggle(this)">
       <div class="faq-q">What's the difference between difficulty levels?<span class="faq-toggle">+</span></div>
       <div class="faq-a">
-        <strong style="color:var(--cream)">🌱 Beginner</strong> — "I know a little cribbage..." The AI makes deliberate mistakes and gifts scoring cards into the crib. A forgiving way to learn.<br/><br/>
-        <strong style="color:var(--cream)">⚔️ Intermediate</strong> — "I picked a bad week to...stop playing beginner." The AI plays optimally half the time and gifts the other half.<br/><br/>
+        <strong style="color:var(--cream)">🌱 Beginner</strong> — "I know a little cribbage..." The AI makes strategic mistakes and intentionally tosses useful cards (pairs, connectors, fives) into your crib.<br/><br/>
+        <strong style="color:var(--cream)">⚔️ Intermediate</strong> — "I picked a bad week to...stop playing beginner." The AI plays optimally half the time and gifts you the other half.<br/><br/>
         <strong style="color:var(--cream)">💀 Expert</strong> — "To the Pain..." The AI seem like it reads your mind, plans ahead, and plays to win. No gifts. No mercy.<br/><br/>
         <strong style="color:var(--cream)">🚀 Ludicrous Speed</strong> — "Surely you can't be serious." The AI starts learning your game patterns and uses it for every decision. Pure computational carnage.
       </div>
@@ -169,18 +378,11 @@
       <div class="faq-a">Difficulty is set at the start of each game and cannot be changed during play. Start a New Game from the menu to choose a different level.</div>
     </div>
 
-    <p class="faq-group-label">Duplicate Card Mode</p>
-
-    <div class="faq-item" onclick="toggle(this)">
-      <div class="faq-q">What is Duplicate Card Mode?<span class="faq-toggle">+</span></div>
-      <div class="faq-a">Duplicate Card Mode eliminates luck by having both you and the AI play the exact same cards. You play one round with your hand, then swap and play the AI's hand. A full comparison breakdown shows who scored better with each set of cards — pure skill, no excuses.</div>
-    </div>
-
-    <p class="faq-group-label">App & Technical</p>
+    <p class="faq-group-label">App &amp; Technical</p>
 
     <div class="faq-item" onclick="toggle(this)">
       <div class="faq-q">Does Gridbage require an internet connection?<span class="faq-toggle">+</span></div>
-      <div class="faq-a">No. Gridbage works completely offline. There's no account, no login, no server communication of any kind. Play anywhere, anytime.</div>
+      <div class="faq-a">No. Gridbage works completely offline. There's no account, no login, no server communication of any kind. Play on a plane, in the woods, anywhere.</div>
     </div>
 
     <div class="faq-item" onclick="toggle(this)">
@@ -200,18 +402,14 @@
 
   </div>
 
-  <div class="contact-box">
-    <h3>Still need help?</h3>
-    <p>Email us at <a href="mailto:support@gridbage.com">support@gridbage.com</a> — we read and respond to every message.</p>
-  </div>
-
   <footer>
+    <div class="footer-suits">♠ ♥ ♣ ♦</div>
     <div class="footer-links">
       <a href="/">Home</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="support.html">Support</a>
     </div>
-    <p class="footer-copy">© 2026 GLC Property LLC · U.S. Patent D976,328 · gridbage.com</p>
+    <p class="footer-copy">© 2026 GLC Property LLC &nbsp;·&nbsp; U.S. Patent D976,328 &nbsp;·&nbsp; gridbage.com</p>
   </footer>
 
   <script>
