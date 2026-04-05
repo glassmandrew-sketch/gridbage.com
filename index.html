@@ -577,8 +577,83 @@
       z-index: 1;
     }
 
-    /* ── RESPONSIVE ── */
+    /* ── GRIDBAGE WITH FRIENDS ── */
+    .gwf-box {
+      background: var(--wood-dark);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 52px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .gwf-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold-bright);
+      margin-bottom: 16px;
+    }
+
+    .gwf-box p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .gwf-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .gwf-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--wood-mid);
+      border: 1px solid rgba(212,160,23,0.2);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .gwf-step-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .gwf-step-text h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--gold-bright);
+      margin-bottom: 4px;
+    }
+
+    .gwf-step-text p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .gwf-badge {
+      display: inline-block;
+      background: rgba(212,160,23,0.12);
+      border: 1px solid rgba(212,160,23,0.35);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
     @media (max-width: 700px) {
+      .gwf-box { grid-template-columns: 1fr; gap: 32px; padding: 32px 20px; }
+    }
       nav { padding: 12px 20px; }
       .nav-links { display: none; }
       .hero { padding: 56px 20px 48px; }
@@ -599,6 +674,7 @@
       <a href="#how-it-works">How to Play</a>
       <a href="#difficulty">Difficulty</a>
       <a href="#duplicate">Duplicate Mode</a>
+      <a href="#friends">Play with Friends</a>
       <a href="support.html">Support</a>
       <a href="#download" class="nav-cta">Download</a>
     </div>
@@ -791,7 +867,54 @@
 
   <hr class="gold-rule"/>
 
-  <!-- FEATURES -->
+  <!-- GRIDBAGE WITH FRIENDS -->
+  <section id="friends">
+    <div class="section-inner">
+      <h2 class="section-title">Gridbage with Friends</h2>
+      <p class="section-sub">Challenge a real person. Anywhere in the world.</p>
+      <div class="gwf-box">
+        <div>
+          <span class="gwf-badge">🌐 ONLINE MULTIPLAYER</span>
+          <h3>The Same Game. A Real Opponent.</h3>
+          <p>Gridbage with Friends brings the full Gridbage experience to asynchronous online play. Challenge someone you know using a 6-character friend code — no random matchmaking, no strangers, just you and whoever you invite.</p>
+          <p>Both players take turns at their own pace. When it's your turn, a notification lets you know. Each hand is fully scored and tracked, and your head-to-head record is kept automatically.</p>
+          <p>All game modes are supported — Regular and Duplicate Card — in both classic First to 121 and Grid scoring. Sign in with Apple or Google to get started. No password required.</p>
+        </div>
+        <div class="gwf-steps">
+          <div class="gwf-step">
+            <div class="gwf-step-icon">🔑</div>
+            <div class="gwf-step-text">
+              <h4>Sign In with Apple or Google</h4>
+              <p>One tap to create your account. Choose a nickname — it's the only name your opponents will ever see.</p>
+            </div>
+          </div>
+          <div class="gwf-step">
+            <div class="gwf-step-icon">🤝</div>
+            <div class="gwf-step-text">
+              <h4>Share Your Friend Code</h4>
+              <p>Every player gets a unique 6-character code. Give yours to a friend and challenge them directly — or enter theirs to send an invite.</p>
+            </div>
+          </div>
+          <div class="gwf-step">
+            <div class="gwf-step-icon">🃏</div>
+            <div class="gwf-step-text">
+              <h4>Choose Your Role & Mode</h4>
+              <p>Pick Rows or Columns. Pick Regular or Duplicate. Then cut for deal — lower card goes first.</p>
+            </div>
+          </div>
+          <div class="gwf-step">
+            <div class="gwf-step-icon">🏆</div>
+            <div class="gwf-step-text">
+              <h4>Race to 121</h4>
+              <p>Full scoring summaries after every hand. Win/loss records tracked for overall and head-to-head matchups.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="gold-rule"/>
   <section>
     <div class="section-inner">
       <h2 class="section-title">Built for Cribbage Players</h2>
@@ -815,28 +938,35 @@
           <div class="feature-icon">🚫</div>
           <div>
             <h4>No Ads. Ever.</h4>
-            <p>No advertisements, no in-app purchases, no account required. Pay once, play forever.</p>
+            <p>No advertisements, no in-app purchases, no account required to play solo. Pay once, play forever.</p>
           </div>
         </div>
         <div class="feature">
           <div class="feature-icon">🔒</div>
           <div>
-            <h4>Complete Privacy</h4>
-            <p>Zero data collected. No tracking. No analytics. Everything stays on your device. Always.</p>
+            <h4>Privacy First</h4>
+            <p>Solo play collects zero data — nothing leaves your device. Gridbage with Friends uses Firebase only to sync game state and your nickname. No real names, no email, no tracking.</p>
           </div>
         </div>
         <div class="feature">
           <div class="feature-icon">📶</div>
           <div>
-            <h4>Fully Offline</h4>
-            <p>No internet connection needed. Play on a plane, in the woods, anywhere.</p>
+            <h4>Fully Offline for Solo Play</h4>
+            <p>No internet needed to play against the AI. Play on a plane, in the woods, anywhere. Gridbage with Friends requires a connection only when it's your turn.</p>
           </div>
         </div>
         <div class="feature">
           <div class="feature-icon">📊</div>
           <div>
             <h4>Statistics Tracking</h4>
-            <p>Win/loss records, average scores, best scores, skunks given and received — all stored locally on your device.</p>
+            <p>Solo: win/loss records, average scores, best scores, skunks — stored locally on your device. GwF: overall record and head-to-head history vs every opponent, synced in the cloud.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🌐</div>
+          <div>
+            <h4>Play with Friends Online</h4>
+            <p>Asynchronous multiplayer via 6-character friend codes. No random matchmaking. Challenge someone you know and play at your own pace.</p>
           </div>
         </div>
       </div>
@@ -861,6 +991,7 @@
       <a href="#how-it-works">How to Play</a>
       <a href="#difficulty">Difficulty Levels</a>
       <a href="#duplicate">Duplicate Mode</a>
+      <a href="#friends">Play with Friends</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="support.html">Support</a>
     </div>

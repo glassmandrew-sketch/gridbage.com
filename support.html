@@ -9,298 +9,53 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --wood:        #6b3410;
-      --wood-dark:   #1a0800;
-      --wood-mid:    #3b1a08;
-      --wood-light:  #8b4820;
-      --gold:        #d4a017;
-      --gold-bright: #f0c040;
-      --gold-dim:    #a07010;
-      --cream:       #f5ead8;
-      --muted:       #b08060;
+      --wood: #6b3410; --wood-dark: #1a0800; --wood-mid: #3b1a08; --wood-light: #8b4820;
+      --gold: #d4a017; --gold-bright: #f0c040; --gold-dim: #a07010;
+      --cream: #f5ead8; --muted: #b08060;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Crimson Pro', Georgia, serif;
-      background: var(--wood-mid);
-      color: var(--cream);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        repeating-linear-gradient(92deg, transparent, transparent 120px, rgba(255,210,140,0.025) 121px),
-        repeating-linear-gradient(88deg, transparent, transparent 200px, rgba(0,0,0,0.04) 201px);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--wood-dark);
-      border-bottom: 2px solid var(--gold);
-      padding: 14px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: var(--gold-bright);
-      letter-spacing: 5px;
-      text-decoration: none;
-      text-shadow: 2px 2px 0 #5a2d0c, 0 0 20px rgba(240,192,64,0.3);
-    }
-
+    body { font-family: 'Crimson Pro', Georgia, serif; background: var(--wood-mid); color: var(--cream); min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(92deg, transparent, transparent 120px, rgba(255,210,140,0.025) 121px), repeating-linear-gradient(88deg, transparent, transparent 200px, rgba(0,0,0,0.04) 201px); pointer-events: none; z-index: 0; }
+    nav { position: sticky; top: 0; z-index: 100; background: var(--wood-dark); border-bottom: 2px solid var(--gold); padding: 14px 40px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--gold-bright); letter-spacing: 5px; text-decoration: none; text-shadow: 2px 2px 0 #5a2d0c, 0 0 20px rgba(240,192,64,0.3); }
     .nav-links { display: flex; gap: 28px; align-items: center; }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: color 0.2s; }
     .nav-links a:hover { color: var(--gold-bright); }
-
-    /* ── PAGE HEADER ── */
-    .page-header {
-      position: relative;
-      z-index: 1;
-      background: var(--wood-dark);
-      border-bottom: 3px solid var(--gold);
-      text-align: center;
-      padding: 64px 32px 52px;
-      overflow: hidden;
-    }
-
-    .page-header::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 40%, rgba(212,160,23,0.1) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .page-header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 6vw, 3.2rem);
-      font-weight: 900;
-      color: var(--gold-bright);
-      letter-spacing: 6px;
-      text-shadow: 3px 3px 0 #5a2d0c;
-      margin-bottom: 12px;
-      position: relative;
-    }
-
-    .page-header p {
-      font-style: italic;
-      color: var(--muted);
-      font-size: 1rem;
-      position: relative;
-    }
-
-    /* ── CONTAINER ── */
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 64px 32px 80px;
-    }
-
-    /* ── CONTACT BOX ── */
-    .contact-box {
-      background: var(--wood-dark);
-      border: 2px solid var(--gold);
-      border-radius: 14px;
-      padding: 40px 32px;
-      text-align: center;
-      margin-bottom: 56px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-box::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, rgba(212,160,23,0.07) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .contact-box h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      color: var(--gold-bright);
-      margin-bottom: 14px;
-      position: relative;
-    }
-
-    .contact-box p {
-      font-size: 1.05rem;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 28px;
-      max-width: 520px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-    }
-
-    .contact-btn {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--wood-dark);
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1rem;
-      padding: 14px 36px;
-      border-radius: 8px;
-      text-decoration: none;
-      letter-spacing: 0.5px;
-      position: relative;
-      transition: background 0.2s;
-    }
+    .page-header { position: relative; z-index: 1; background: var(--wood-dark); border-bottom: 3px solid var(--gold); text-align: center; padding: 64px 32px 52px; overflow: hidden; }
+    .page-header::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(212,160,23,0.1) 0%, transparent 65%); pointer-events: none; }
+    .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 6vw, 3.2rem); font-weight: 900; color: var(--gold-bright); letter-spacing: 6px; text-shadow: 3px 3px 0 #5a2d0c; margin-bottom: 12px; position: relative; }
+    .page-header p { font-style: italic; color: var(--muted); font-size: 1rem; position: relative; }
+    .container { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 64px 32px 80px; }
+    .contact-box { background: var(--wood-dark); border: 2px solid var(--gold); border-radius: 14px; padding: 40px 32px; text-align: center; margin-bottom: 56px; position: relative; overflow: hidden; }
+    .contact-box::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(212,160,23,0.07) 0%, transparent 65%); pointer-events: none; }
+    .contact-box h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold-bright); margin-bottom: 14px; position: relative; }
+    .contact-box p { font-size: 1.05rem; color: var(--muted); line-height: 1.75; margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; position: relative; }
+    .contact-btn { display: inline-block; background: var(--gold); color: var(--wood-dark); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; padding: 14px 36px; border-radius: 8px; text-decoration: none; letter-spacing: 0.5px; position: relative; transition: background 0.2s; }
     .contact-btn:hover { background: var(--gold-bright); }
-
-    /* ── FAQ ── */
-    .faq-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--gold-bright);
-      margin-bottom: 32px;
-      letter-spacing: 2px;
-    }
-
-    .faq-group-label {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.85rem;
-      color: var(--gold);
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin: 40px 0 14px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(212,160,23,0.3);
-    }
-
-    .faq-item {
-      background: var(--wood-dark);
-      border: 1px solid rgba(212,160,23,0.2);
-      border-radius: 10px;
-      padding: 22px 24px;
-      margin-bottom: 12px;
-      cursor: pointer;
-      transition: border-color 0.2s;
-    }
+    .faq-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--gold-bright); margin-bottom: 32px; letter-spacing: 2px; }
+    .faq-group-label { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(212,160,23,0.3); }
+    .faq-item { background: var(--wood-dark); border: 1px solid rgba(212,160,23,0.2); border-radius: 10px; padding: 22px 24px; margin-bottom: 12px; cursor: pointer; transition: border-color 0.2s; }
     .faq-item:hover { border-color: rgba(212,160,23,0.5); }
     .faq-item.open { border-color: var(--gold); }
-
-    .faq-q {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      color: var(--cream);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      user-select: none;
-    }
-
-    .faq-toggle {
-      color: var(--gold);
-      font-size: 1.3rem;
-      flex-shrink: 0;
-      transition: transform 0.25s;
-      line-height: 1;
-    }
+    .faq-q { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--cream); display: flex; justify-content: space-between; align-items: center; gap: 12px; user-select: none; }
+    .faq-toggle { color: var(--gold); font-size: 1.3rem; flex-shrink: 0; transition: transform 0.25s; line-height: 1; }
     .faq-item.open .faq-toggle { transform: rotate(45deg); }
-
-    .faq-a {
-      display: none;
-      margin-top: 16px;
-      font-size: 1rem;
-      color: var(--muted);
-      line-height: 1.85;
-    }
+    .faq-a { display: none; margin-top: 16px; font-size: 1rem; color: var(--muted); line-height: 1.85; }
     .faq-item.open .faq-a { display: block; }
     .faq-a a { color: var(--gold-bright); text-decoration: none; }
     .faq-a a:hover { text-decoration: underline; }
-
-    /* skunk table inside FAQ */
-    .skunk-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 14px;
-      font-size: 0.95rem;
-    }
-    .skunk-table td {
-      padding: 8px 12px;
-      border-bottom: 1px solid rgba(212,160,23,0.15);
-      color: var(--muted);
-    }
+    .skunk-table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 0.95rem; }
+    .skunk-table td { padding: 8px 12px; border-bottom: 1px solid rgba(212,160,23,0.15); color: var(--muted); }
     .skunk-table td:first-child { font-size: 1.1rem; width: 36px; }
     .skunk-table td:last-child { color: var(--cream); }
-
-    /* ── FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      background: var(--wood-dark);
-      border-top: 1px solid rgba(212,160,23,0.2);
-      padding: 40px 32px;
-      text-align: center;
-    }
-
-    .footer-suits {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-      opacity: 0.2;
-      letter-spacing: 14px;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .footer-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
+    footer { position: relative; z-index: 1; background: var(--wood-dark); border-top: 1px solid rgba(212,160,23,0.2); padding: 40px 32px; text-align: center; }
+    .footer-suits { font-size: 1.2rem; margin-bottom: 20px; opacity: 0.2; letter-spacing: 14px; }
+    .footer-links { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-bottom: 16px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
     .footer-links a:hover { color: var(--gold-bright); }
-
-    .footer-copy {
-      font-size: 0.8rem;
-      color: rgba(176,128,96,0.5);
-    }
-
-    @media (max-width: 600px) {
-      nav { padding: 12px 20px; }
-      .nav-links { display: none; }
-      .container { padding: 40px 20px 60px; }
-    }
+    .footer-copy { font-size: 0.8rem; color: rgba(176,128,96,0.5); }
+    @media (max-width: 600px) { nav { padding: 12px 20px; } .nav-links { display: none; } .container { padding: 40px 20px 60px; } }
   </style>
 </head>
 <body>
@@ -337,7 +92,7 @@
 
     <div class="faq-item" onclick="toggle(this)">
       <div class="faq-q">What is the crib?<span class="faq-toggle">+</span></div>
-      <div class="faq-a">The crib is a bonus hand scored at the end of each round. Each player discards 2 cards into it before placing cards on the grid. The dealer scores the crib — so strategy includes choosing which cards to throw in (or keep out of) the crib based on who the dealer is. The dealer alternates each game.</div>
+      <div class="faq-a">The crib is a bonus hand scored at the end of each round. Each player discards 2 cards into it before placing cards on the grid. The dealer scores the crib — so strategy includes choosing which cards to throw in (or keep out of) the crib based on who the dealer is. The dealer alternates each hand.</div>
     </div>
 
     <div class="faq-item" onclick="toggle(this)">
@@ -347,18 +102,18 @@
 
     <div class="faq-item" onclick="toggle(this)">
       <div class="faq-q">What is a skunk — and a double skunk?<span class="faq-toggle">+</span></div>
-      <div class="faq-a">A skunk occurs when the winning player reaches 121 before the loser reaches 91. A double skunk is when the loser hasn't reached 61. In tournament cribbage, these count as extra losses. Gridbage tracks both for your statistics.
+      <div class="faq-a">A skunk occurs when the winning player reaches 121 before the loser reaches 91. A double skunk is when the loser hasn't reached 61. Gridbage tracks both for your statistics.
         <table class="skunk-table">
           <tr><td>🏆</td><td>91 – 120 pts</td><td>Regular loss</td></tr>
-          <tr><td>🦨</td><td>61 – 90 pts</td><td>Skunk — counts as 2 losses</td></tr>
-          <tr><td>🦨🦨</td><td>0 – 60 pts</td><td>Double skunk — counts as 3 losses</td></tr>
+          <tr><td>🦨</td><td>61 – 90 pts</td><td>Skunk</td></tr>
+          <tr><td>🦨🦨</td><td>0 – 60 pts</td><td>Double skunk</td></tr>
         </table>
       </div>
     </div>
 
     <div class="faq-item" onclick="toggle(this)">
       <div class="faq-q">What is Duplicate Card mode?<span class="faq-toggle">+</span></div>
-      <div class="faq-a">Duplicate Card mode deals the same cards to both you and the AI across matched sets — you each play the other's hand. At the end, a full comparison table shows each hand's results side-by-side with a score differential. It's designed to eliminate luck entirely and measure pure decision-making skill. No lucky draws. No excuses.</div>
+      <div class="faq-a">Duplicate Card mode deals the same cards to both you and your opponent across matched sets — you each play the other's hand. At the end, a full comparison table shows each hand's results side-by-side with a score differential. It's designed to eliminate luck entirely and measure pure decision-making skill. No lucky draws. No excuses.</div>
     </div>
 
     <p class="faq-group-label">Difficulty Levels</p>
@@ -366,7 +121,7 @@
     <div class="faq-item" onclick="toggle(this)">
       <div class="faq-q">What's the difference between difficulty levels?<span class="faq-toggle">+</span></div>
       <div class="faq-a">
-        <strong style="color:var(--cream)">🌱 Beginner</strong> — "I know a little cribbage..." The AI makes strategic mistakes and intentionally tosses useful cards (pairs, connectors, fives) into your crib.<br/><br/>
+        <strong style="color:var(--cream)">🌱 Beginner</strong> — "I know a little cribbage..." The AI makes strategic mistakes and intentionally tosses useful cards into your crib.<br/><br/>
         <strong style="color:var(--cream)">⚔️ Intermediate</strong> — "I picked a bad week to...stop playing beginner." The AI plays optimally half the time and gifts you the other half.<br/><br/>
         <strong style="color:var(--cream)">💀 Expert</strong> — "To the Pain..." The AI seems like it reads your mind, plans ahead, and plays to win. No gifts. No mercy.<br/><br/>
         <strong style="color:var(--cream)">🚀 Ludicrous Speed</strong> — "Surely you can't be serious." The AI starts learning your game patterns and uses them for every decision. Pure computational carnage.
@@ -382,12 +137,12 @@
 
     <div class="faq-item" onclick="toggle(this)">
       <div class="faq-q">Does Gridbage require an internet connection?<span class="faq-toggle">+</span></div>
-      <div class="faq-a">No. Gridbage works completely offline. There's no account, no login, no server communication of any kind. Play on a plane, in the woods, anywhere.</div>
+      <div class="faq-a">Solo play against the AI works completely offline — no internet, no account, no server communication of any kind. Play on a plane, in the woods, anywhere.<br/><br/>Gridbage with Friends (online multiplayer) requires an internet connection, but only when it's your turn or you're checking the lobby. The game is asynchronous — you don't need to be online at the same time as your opponent.</div>
     </div>
 
     <div class="faq-item" onclick="toggle(this)">
       <div class="faq-q">My stats were lost — can I recover them?<span class="faq-toggle">+</span></div>
-      <div class="faq-a">Stats are stored locally on your device only. If you deleted and reinstalled the app, restored from a backup, or reset your device, the stats may have been lost. Unfortunately, we cannot recover local stats remotely since we never have access to them — that's by design for your privacy.</div>
+      <div class="faq-a">Solo play stats are stored locally on your device only. If you deleted and reinstalled the app, restored from a backup, or reset your device, those stats may have been lost. We cannot recover local stats remotely — that's by design for your privacy.<br/><br/>Gridbage with Friends stats are stored in the cloud and will automatically sync back if you sign in again with the same Apple or Google account.</div>
     </div>
 
     <div class="faq-item" onclick="toggle(this)">
@@ -397,7 +152,44 @@
 
     <div class="faq-item" onclick="toggle(this)">
       <div class="faq-q">Does Gridbage collect any of my data?<span class="faq-toggle">+</span></div>
-      <div class="faq-a">No. Zero. Nothing is collected, transmitted, or stored outside your device. No analytics, no crash reporting, no advertising identifiers. See our full <a href="privacy.html">Privacy Policy</a> for details.</div>
+      <div class="faq-a">Solo play: no. Absolutely nothing is collected, transmitted, or stored outside your device. No analytics, no crash reporting, no advertising identifiers.<br/><br/>Gridbage with Friends: yes, minimally. When you sign in and play online, we store your nickname, a randomly generated friend code, your win/loss record, and active game state in Google Firebase. We never collect your real name, email, location, or any other personal information. See our full <a href="privacy.html">Privacy Policy</a> for details.</div>
+    </div>
+
+    <p class="faq-group-label">Gridbage with Friends</p>
+
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">How do I start playing Gridbage with Friends?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">Tap the 🌐 icon on the main screen to open the Gridbage with Friends lobby. Sign in with Apple or Google — one tap, no password needed. You'll be assigned a unique 6-character friend code. Share your code with anyone you want to challenge, or enter their code to send an invite.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">Can I play with strangers, or only people I know?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">Only people you know. Gridbage with Friends uses friend codes — there is no random matchmaking, no public lobby, and no way for strangers to find you. You must exchange codes with someone directly to play them.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">Is there chat or messaging in Gridbage with Friends?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">No. There is no chat, voice, messaging, or any communication between players. The only interaction is the game itself — placing cards, discarding, and scoring. This is intentional, and is part of why Gridbage with Friends is appropriate for all ages.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">Does Gridbage with Friends play in real time or asynchronously?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">Asynchronously. You and your opponent do not need to be online at the same time. When it's your turn, the game updates and you'll see it the next time you open the app. You can have multiple games going simultaneously with different people.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">What game modes are available in Gridbage with Friends?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">All the same modes as solo play: Regular or Duplicate Card, and either classic First to 121 scoring or Grid scoring. The person sending the invite picks the mode when creating the challenge.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">What data does Gridbage with Friends store about me?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">Only what's needed to run the game: your chosen nickname, a randomly generated friend code, your win/loss record vs opponents, and current game state. We never store your real name, email address, phone number, location, or any other personal information. See our <a href="privacy.html">Privacy Policy</a> for full details.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggle(this)">
+      <div class="faq-q">How do I delete my Gridbage with Friends account?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">Email us at <a href="mailto:support@gridbage.com">support@gridbage.com</a> with the subject "Delete my account" and we will remove your account and all associated data within 30 days. You can also reset your in-app GwF stats at any time from the lobby without fully deleting your account.</div>
     </div>
 
   </div>
@@ -407,4 +199,14 @@
     <div class="footer-links">
       <a href="/">Home</a>
       <a href="privacy.html">Privacy Policy</a>
-      <a href="sup
+      <a href="support.html">Support</a>
+    </div>
+    <p class="footer-copy">© 2026 GLC Property LLC &nbsp;·&nbsp; U.S. Patent D976,328 &nbsp;·&nbsp; gridbage.com</p>
+  </footer>
+
+  <script>
+    function toggle(el) { el.classList.toggle('open'); }
+  </script>
+
+</body>
+</html>
